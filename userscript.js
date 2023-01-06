@@ -44,41 +44,42 @@
 
             var responseJSON = JSON.parse(response.responseText);
 
-            var issues = responseJSON.issues.map(x => x.key);
+            if (responseJSON && responseJSON.issues.length > 0) {
 
-            var sidebar = document.getElementById('partial-discussion-sidebar');
+                var issues = responseJSON.issues.map(x => x.key);
 
-            var sidebarItem = document.createElement('div');
-            sidebarItem.classList.add('discussion-sidebar-item');
-            sidebar.prepend(sidebarItem);
+                var sidebar = document.getElementById('partial-discussion-sidebar');
 
-            var details = document.createElement('details');
-            details.classList.add('details-reset');
-            details.classList.add('details-overlay');
-            sidebarItem.appendChild(details);
+                var sidebarItem = document.createElement('div');
+                sidebarItem.classList.add('discussion-sidebar-item');
+                sidebar.prepend(sidebarItem);
 
-            var summary = document.createElement('summary');
-            summary.classList.add('text-bold');
-            summary.classList.add('discussion-sidebar-heading');
-            summary.innerHTML = 'Jira Links';
-            details.appendChild(summary);
+                var details = document.createElement('details');
+                details.classList.add('details-reset');
+                details.classList.add('details-overlay');
+                sidebarItem.appendChild(details);
 
-            for (var i=0; i<issues.length; i++) {
+                var summary = document.createElement('summary');
+                summary.classList.add('text-bold');
+                summary.classList.add('discussion-sidebar-heading');
+                summary.innerHTML = 'Jira Links';
+                details.appendChild(summary);
 
-                var jiraLinkHref = `${jiraHost}browse/${issues[i]}`
+                for (var i=0; i<issues.length; i++) {
 
-                var linkSpan = document.createElement('span');
-                linkSpan.style.cssText = 'margin-right:4px';
+                    var jiraLinkHref = `${jiraHost}browse/${issues[i]}`
 
-                sidebarItem.appendChild(linkSpan);
+                    var linkSpan = document.createElement('span');
+                    linkSpan.style.cssText = 'margin-right:4px';
 
-                var jiraLink = document.createElement('a');
-                jiraLink.href = jiraLinkHref;
-                jiraLink.innerHTML = issues[i];
-                linkSpan.appendChild(jiraLink);
+                    sidebarItem.appendChild(linkSpan);
+
+                    var jiraLink = document.createElement('a');
+                    jiraLink.href = jiraLinkHref;
+                    jiraLink.innerHTML = issues[i];
+                    linkSpan.appendChild(jiraLink);
+                }
             }
-
-            console.log(issues);
         }
     });
 })();
