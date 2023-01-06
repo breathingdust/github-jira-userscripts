@@ -34,13 +34,6 @@
         },
         responseType: "document",
         onload: function (response) {
-            var responseXML = response.responseXML;
-            if (!responseXML) {
-                try {
-                    responseXML = new DOMParser().parseFromString(response.responseText, "text/html");
-                }
-                catch (err) {}
-            }
 
             var responseJSON = JSON.parse(response.responseText);
 
